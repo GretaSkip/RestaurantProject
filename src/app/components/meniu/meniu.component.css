@@ -1,0 +1,17 @@
+div{
+    /* width: 70%; */
+    margin-left: 20px; 
+    margin-top: 20px;
+ }
+
+ .alignleft {
+    float: left;
+}
+.aligntop {
+    float: top;
+    width: 70%;
+}
+
+ button{
+    margin: 2px; 
+ }

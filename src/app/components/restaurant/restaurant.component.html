@@ -1,0 +1,40 @@
+<div>
+
+    <!-- <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="">Enter First and Last name</span>
+        </div>
+        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="firstName" />
+        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="lastName" />
+        <button type="button" class="btn btn-primary" (click)="addEmployee()">Add</button>
+    </div> -->
+
+    <div>
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Pavadinimas</th>
+                    <th>Lankytojų kiekis</th>
+                    <th>Darbuototjų kiekis</th>
+                    <th>Dienos patiekalas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let restaurant of restaurants; index as i">
+                    <th>{{ i + 1 }}</th>
+                    <td>{{restaurant.title}}</td>
+                    <td>{{restaurant.customers}}</td>
+                    <td>{{restaurant.employees}}</td>
+                    <td>{{restaurant.meniu.title}}</td>
+                    <td> <button type="button" class="btn btn-danger" >Ištrinti</button>
+                        <button type="button" class="btn btn-warning" >Koreguoti</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
