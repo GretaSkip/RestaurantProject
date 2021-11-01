@@ -1,4 +1,3 @@
-import { Meniu } from "./meniu";
 
 export interface Restaurant {
     id: number,
@@ -7,4 +6,9 @@ export interface Restaurant {
     employees: number,
     meniuId: number,
     meniu: Meniu
+};
+
+export interface Meniu {
+    id: number,
+    title: string
 };

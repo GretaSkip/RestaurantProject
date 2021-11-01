@@ -27,8 +27,9 @@ public deleteMeniu(id: number): Observable<Meniu> {
   return this.http.delete<Meniu>(`https://localhost:44321/Meniu/${id}`);
 }
 
+
 public updateMeniu(meniu: Meniu): Observable<Meniu> {
-  return this.http.put<Meniu>(`${"https://localhost:44321/Meniu"}/${meniu.id}`, meniu);
+  return this.http.put<Meniu>(`https://localhost:44321/Meniu`, meniu);
 }
  
 }

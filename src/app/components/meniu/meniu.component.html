@@ -1,9 +1,12 @@
 <div>
+  <div>
+  <h4>Meniu</h4>
+  </div>
     <div>
-    <button type="submit" class="btn btn-secondary" *ngIf="hidden" (click)="hidden = false">Pridėti patiekalą</button>
+    <button type="submit" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti patiekalą</button>
     </div>
     
-    <div class="aligntop" [hidden]="hidden">
+    <div class="aligntop" [hidden]="hideMode">
         <h6>Pridėti dienos patiekalą:</h6>
         <div class="form-group">
           <label>Pavadinimas</label>
@@ -11,22 +14,26 @@
         </div>
         <div class="form-group">
           <label>Kaina EUR</label>
-          <input type="text" class="form-control" placeholder="Kaina" [(ngModel)]="price">
+          <input type="text" class="form-control" placeholder="Įvesti kainą" [(ngModel)]="price">
         </div>
         <div class="form-group">
             <label>Svoris g</label>
-            <input type="text" class="form-control" placeholder="Svoris" [(ngModel)]="weight" >
+            <input type="text" class="form-control" placeholder="Įvesti svorį" [(ngModel)]="weight" >
           </div>
           <div class="form-group">
             <label>Mėsos kiekis g</label>
-            <input type="text" class="form-control" placeholder="Mėsos kiekis" [(ngModel)]="meat" >
+            <input type="text" class="form-control" placeholder="Įvesti mėsos kiekį" [(ngModel)]="meat" >
           </div>
           <div class="form-group">
             <label>Aprašymas</label>
-            <input type="text" class="form-control" placeholder="Aprašymas" [(ngModel)]="about">
+            <input type="text" class="form-control" placeholder="Įvesti Aprašymą" [(ngModel)]="about">
           </div>
-        <button type="submit" class="btn btn-primary" (click)="addMeniu()">Pridėti</button>
-        
+          <div>
+            <button type="submit" class="btn btn-primary" *ngIf="editMode == false" (click)="addMeniu()">Pridėti</button>
+          </div>  
+          <div>
+            <button type="submit" class="btn btn-primary" *ngIf="editMode == true" (click)="sendUpdatedMeniu()">Koreguoti</button>
+          </div> 
     </div>
 
     <div class="alignleft">
@@ -53,7 +60,7 @@
                     <td>{{meniu.meat}} g</td>
                     <td>{{meniu.about}}</td>
                     <td> <button type="button" class="btn btn-danger" (click)="deleteMeniu(meniu.id)">Ištrinti</button>
-                        <button type="button" class="btn btn-warning" >Koreguoti</button>
+                        <button type="button" class="btn btn-warning" (click)="loadMeniu(meniu)">Koreguoti</button>
                     </td>
                 </tr>
             </tbody>

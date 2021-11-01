@@ -15,23 +15,29 @@ export class MeniuComponent implements OnInit {
     this.meniuService = meniuService;
    }
 
-  public id: number = 0;
-  public title: string = "";
-  public price: number = 0;
-  public weight: number = 0;
-  public meat: number = 0;
-  public about: string = ""
+  public id: number;
+  public title: string;
+  public price: number;
+  public weight: number;
+  public meat: number;
+  public about: string
   
   public menius: Meniu[] = [];
 
-  public hidden: boolean = true;
+  public hideMode: boolean = true;
+  public editMode: boolean = false;
+
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  public getData(): void{
     this.meniuService.getMenius().subscribe((meniusFromApi) => {
       this.menius = meniusFromApi;
-  })
+    })
+  }
 
-}
   public addMeniu(): void {
     var newMeniu: Meniu = {
       id: this.id,
@@ -45,11 +51,14 @@ export class MeniuComponent implements OnInit {
     this.meniuService.addMeniu(newMeniu).subscribe((meniuId) => {
       newMeniu.id = meniuId;
       this.menius.push(newMeniu);
+      this.getData();
     })
 
-    this.hidden = true;
+    
+    this.hideMode = true;
 
   }
+  
   
   deleteMeniu(id: number): void {
     this.meniuService.deleteMeniu(id).subscribe(()=> {
@@ -58,4 +67,40 @@ export class MeniuComponent implements OnInit {
     })
   }
 
+  loadMeniu(meniu: Meniu): void {
+    
+    this.editMode = true;
+    this.editMode = true;
+  
+    this.id = meniu.id;
+    this.title = meniu.title;
+    this.price = meniu.price;
+    this.weight = meniu.weight;
+    this.meat = meniu.meat;
+    this.about = meniu.about;
+  
+  }
+
+  sendUpdatedMeniu(): void {
+    var updatedValue: Meniu = {
+      id: this.id,
+      title: this.title,
+      price: this.price,
+      weight: this.weight,
+      meat: this.meat,
+      about: this.about
+    }
+
+  this.meniuService.updateMeniu(updatedValue).subscribe(()=>{
+      this.getData();
+      })
+  
+  this.editMode = false;
+  this.editMode = false;
+  
+  }
+
 }
+
+
+

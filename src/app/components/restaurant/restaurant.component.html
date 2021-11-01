@@ -1,14 +1,45 @@
 <div>
+    <div>
+        <h4>Restoranai</h4>
+    </div>
 
-    <!-- <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="">Enter First and Last name</span>
+    <div>
+        <button type="submit" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti restoraną</button>
         </div>
-        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="firstName" />
-        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="lastName" />
-        <button type="button" class="btn btn-primary" (click)="addEmployee()">Add</button>
-    </div> -->
-
+        
+        <div class="aligntop" [hidden] ="hideMode"> 
+            <h6>Pridėti restoraną:</h6>
+            <div class="form-group">
+              <label>Pavadinimas</label>
+              <input type="text" class="form-control" placeholder="Įvesti pavadinimą" [(ngModel)]="title">
+            </div>
+            <div class="form-group">
+              <label>Lankytojų kiekis</label>
+              <input type="text" class="form-control" placeholder="Įvesti lankytojų kiekį" [(ngModel)]="customers">
+            </div>
+            <div class="form-group">
+                <label>Darbuototjų kiekis</label>
+                <input type="text" class="form-control" placeholder="Įvesti darbuotojų kiekį" [(ngModel)]="employees" >
+              </div>
+              
+            <div class="form-group">
+                <label>Dienos patiekalas</label>
+                
+                    <select class="form-select" [(ngModel)]="meniuId">
+                        <option disabled>Pasirinkti...</option>
+                        <option *ngFor="let meniu of menius"  [value]="meniu.id">
+                            {{meniu.title}}
+                        </option>
+                    </select>
+                
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" *ngIf="editMode == false" (click)="addRestaurant()">Pridėti</button>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" *ngIf="editMode == true" (click)="sendUpdatedRestaurant()">Koreguoti</button>
+            </div>
+        </div>
     <div>
         <table class="table table-striped">
 
@@ -30,8 +61,8 @@
                     <td>{{restaurant.customers}}</td>
                     <td>{{restaurant.employees}}</td>
                     <td>{{restaurant.meniu.title}}</td>
-                    <td> <button type="button" class="btn btn-danger" >Ištrinti</button>
-                        <button type="button" class="btn btn-warning" >Koreguoti</button>
+                    <td> <button type="button" class="btn btn-danger" (click)="deleteRestaurant(restaurant.id)">Ištrinti</button>
+                        <button type="button" class="btn btn-warning" (click)="loadRestaurant(restaurant)">Koreguoti</button>
                     </td>
                 </tr>
             </tbody>

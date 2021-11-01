@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Meniu } from 'src/app/models/meniu';
-import { Restaurant } from 'src/app/models/restaurant';
+import { Restaurant, Meniu } from 'src/app/models/restaurant';
+import { RestaurantCreateEdit } from 'src/app/models/restaurantCreateEdit';
+import { MeniuService } from 'src/app/services/meniu.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 
 @Component({
@@ -11,23 +12,102 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 export class RestaurantComponent implements OnInit {
 
   private restaurantService: RestaurantService;
+  private meniuService: MeniuService;
+  
 
-  constructor(restaurantService: RestaurantService) {
+  constructor(restaurantService: RestaurantService, meniuService: MeniuService) {
     this.restaurantService = restaurantService;
+    this.meniuService = meniuService;
    }
 
-  public id: number = 0;
-  public title: string = "";
-  public customers: number = 0;
-  public employees: number = 0;
-  public meniuId: number = 0;
+  public id: number ;
+  public title: string;
+  public customers: number;
+  public employees: number ;
+  public meniuId: number ;
+  
+ 
   
   public restaurants: Restaurant[] = [];
+  public valueCreated: RestaurantCreateEdit[] = [];
+  public menius: Meniu[] = [];
+
+  public hideMode: boolean = true;
+  public editMode: boolean = false;
 
   ngOnInit(): void {
-    this.restaurantService.getMenius().subscribe((restaurantsFromApi) => {
+    this.getData();
+    this.getMeniusData();
+  }
+
+  public getData(): void{
+    this.restaurantService.getRestaurants().subscribe((restaurantsFromApi) => {
       this.restaurants = restaurantsFromApi;
     })
+  }
+
+  public getMeniusData(): void{
+    this.meniuService.getMenius().subscribe((meniusFromApi) => {
+      this.menius = meniusFromApi;
+    })
+  }
+
+  public addRestaurant(): void {
+    var newRestaurant: RestaurantCreateEdit = {
+      id: this.id,
+      title: this.title,
+      customers: this.customers,
+      employees: this.employees,
+      meniuId: this.meniuId,
+    }
+
+    this.restaurantService.addRestaurant(newRestaurant).subscribe((restaurantId) => {
+      newRestaurant.id = restaurantId;
+      this.valueCreated.push(newRestaurant);
+      this.getData();
+      
+    })
+
+    this.hideMode = true;
+
+  }
+
+  deleteRestaurant(id: number): void {
+    this.restaurantService.deleteRestaurant(id).subscribe(()=> {
+      let index = this.restaurants.map(r => r.id).indexOf(id);
+      this.restaurants.splice(index, 1);
+    })
+  }
+
+  loadRestaurant(restaurant: Restaurant): void {
+    
+    this.hideMode = false;
+    this.editMode = true;
+  
+    this.id = restaurant.id;
+    this.title = restaurant.title;
+    this.customers = restaurant.customers;
+    this.employees = restaurant.employees;
+    this.meniuId = restaurant.meniuId;
+  
+  }
+
+  sendUpdatedRestaurant(): void {
+    var updatedValue: RestaurantCreateEdit = {
+      id: this.id,
+      title: this.title,
+      customers: this.customers,
+      employees: this.employees,
+      meniuId: this.meniuId
+    }
+
+  this.restaurantService.updateRestaurant(updatedValue).subscribe(()=>{
+    this.getData();
+      })
+  
+  this.hideMode = true;
+  this.editMode = false;
+
   }
 
 }
