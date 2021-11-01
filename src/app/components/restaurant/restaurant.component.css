@@ -1,5 +1,5 @@
 div{
-    width: 80%;
+    width: 90%;
     margin-left: 20px; 
     margin-top: 20px;
  }
@@ -7,3 +7,11 @@ div{
  button{
     margin: 2px; 
  }
+
+ input{
+   width: 50%;
+}
+
+select{
+   width: 50%;
+}

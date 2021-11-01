@@ -30,6 +30,7 @@
           </div>
           <div>
             <button type="submit" class="btn btn-primary" *ngIf="editMode == false" (click)="addMeniu()">Pridėti</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="editMode == false" (click)="hideMode = true">Slėpti formą</button>
           </div>  
           <div>
             <button type="submit" class="btn btn-primary" *ngIf="editMode == true" (click)="sendUpdatedMeniu()">Koreguoti</button>
@@ -54,7 +55,7 @@
             <tbody>
                 <tr *ngFor="let meniu of menius; index as i">
                     <th>{{ i + 1 }}</th>
-                    <td>{{meniu.title}}</td>
+                    <td>"{{meniu.title}}"</td>
                     <td>{{meniu.price}} EUR</td>
                     <td>{{meniu.weight}} g</td>
                     <td>{{meniu.meat}} g</td>
