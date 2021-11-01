@@ -20,6 +20,10 @@ public getRestaurants(): Observable<Restaurant[]> {
   return this.http.get<Restaurant[]>("https://localhost:44321/Restaurant");
 }
 
+public getRestaurantsByMeniu(meniuId: number): Observable<Restaurant[]> {
+  return this.http.get<Restaurant[]>(`https://localhost:44321/Restaurant/RestaurantsbyMeniu/${meniuId}`);
+}
+
 public addRestaurant(restaurant: RestaurantCreateEdit):Observable<number> {
   return this.http.post<number>("https://localhost:44321/Restaurant", restaurant);
 }

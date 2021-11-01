@@ -6,7 +6,7 @@
     <button type="submit" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti patiekalą</button>
     </div>
     
-    <div class="aligntop" [hidden]="hideMode">
+    <div [hidden]="hideMode">
         <h6>Pridėti dienos patiekalą:</h6>
         <div class="form-group">
           <label>Pavadinimas</label>
@@ -37,7 +37,7 @@
           </div> 
     </div>
 
-    <div class="alignleft">
+    <div>
         <table class="table table-striped">
 
             <thead>

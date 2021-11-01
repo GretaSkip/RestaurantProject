@@ -23,10 +23,10 @@ export class RestaurantComponent implements OnInit {
   public id: number ;
   public title: string;
   public customers: number;
-  public employees: number ;
-  public meniuId: number ;
+  public employees: number;
+  public meniuId: number;
   
- 
+  public meniuSelected: number;
   
   public restaurants: Restaurant[] = [];
   public valueCreated: RestaurantCreateEdit[] = [];
@@ -48,17 +48,26 @@ export class RestaurantComponent implements OnInit {
 
   public getMeniusData(): void{
     this.meniuService.getMenius().subscribe((meniusFromApi) => {
-      this.menius = meniusFromApi;
+      this.menius = meniusFromApi.sort((a, b) => (a.title > b.title) ? 1 : -1);
     })
   }
 
-  public addRestaurant(): void {
+  public onMeniuSelected(selectedMeniuId: number): void{
+    if(selectedMeniuId == 0){
+      this.getData();
+    }
+    this.restaurantService.getRestaurantsByMeniu(selectedMeniuId).subscribe((restaurantsFromApi) => {
+      this.restaurants = restaurantsFromApi;
+    })
+  }
+
+  public addRestaurant(): void{
     var newRestaurant: RestaurantCreateEdit = {
       id: this.id,
       title: this.title,
       customers: this.customers,
       employees: this.employees,
-      meniuId: this.meniuId,
+      meniuId: this.meniuId
     }
 
     this.restaurantService.addRestaurant(newRestaurant).subscribe((restaurantId) => {
@@ -72,7 +81,7 @@ export class RestaurantComponent implements OnInit {
 
   }
 
-  deleteRestaurant(id: number): void {
+  deleteRestaurant(id: number): void{
     this.restaurantService.deleteRestaurant(id).subscribe(()=> {
       let index = this.restaurants.map(r => r.id).indexOf(id);
       this.restaurants.splice(index, 1);

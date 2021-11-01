@@ -5,9 +5,19 @@
 
     <div>
         <button type="submit" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti restoraną</button>
+        <div [hidden] ="hideMode == false">
+        <label>Filtruoti restoranus</label>
+        <select class="form-select" [(ngModel)]="meniuSelected" (ngModelChange)="onMeniuSelected($event)">
+            <option disabled>Ieškoti...</option>
+            <option [value]="0">Visi</option>
+            <option *ngFor="let meniu of menius"  [value]="meniu.id">
+                {{meniu.title}}
+            </option>
+        </select>
+        </div>
         </div>
         
-        <div class="aligntop" [hidden] ="hideMode"> 
+        <div [hidden] ="hideMode"> 
             <h6>Pridėti restoraną:</h6>
             <div class="form-group">
               <label>Pavadinimas</label>
