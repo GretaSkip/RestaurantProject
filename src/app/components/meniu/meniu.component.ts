@@ -69,7 +69,7 @@ export class MeniuComponent implements OnInit {
 
   loadMeniu(meniu: Meniu): void {
     
-    this.editMode = true;
+    this.hideMode = false;
     this.editMode = true;
   
     this.id = meniu.id;
@@ -95,7 +95,7 @@ export class MeniuComponent implements OnInit {
       this.getData();
       })
   
-  this.editMode = false;
+  this.hideMode = true;
   this.editMode = false;
   
   }
