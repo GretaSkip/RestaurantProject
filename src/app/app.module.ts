@@ -6,6 +6,7 @@ import { MeniuComponent } from './components/meniu/meniu.component';
 import { RestaurantComponent } from './components/restaurant/restaurant.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AppRoutingModule,
     NgbModule
   ],
   providers: [],

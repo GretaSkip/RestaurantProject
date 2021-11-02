@@ -52,6 +52,10 @@ export class RestaurantComponent implements OnInit {
     })
   }
 
+  menuUpdated(value: string): void {
+    this.getMeniusData();
+  }
+
   public onMeniuSelected(selectedMeniuId: number): void{
     if(selectedMeniuId == 0){
       this.getData();
@@ -74,8 +78,9 @@ export class RestaurantComponent implements OnInit {
       newRestaurant.id = restaurantId;
       this.valueCreated.push(newRestaurant);
       this.getData();
-      
     })
+
+    this.resetValues();
 
     this.hideMode = true;
 
@@ -113,10 +118,19 @@ export class RestaurantComponent implements OnInit {
   this.restaurantService.updateRestaurant(updatedValue).subscribe(()=>{
     this.getData();
       })
+
+  this.resetValues();
   
   this.hideMode = true;
   this.editMode = false;
 
+  }
+
+  resetValues(): void{
+    this.title = "";
+    this.customers = null;
+    this.employees = null;
+    this.meniuId = null;
   }
 
 }

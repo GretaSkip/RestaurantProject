@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Meniu } from 'src/app/models/meniu';
 import { MeniuService } from 'src/app/services/meniu.service';
 
@@ -8,6 +8,8 @@ import { MeniuService } from 'src/app/services/meniu.service';
   styleUrls: ['./meniu.component.css']
 })
 export class MeniuComponent implements OnInit {
+
+  @Output() onMenuUpdated = new EventEmitter();
 
   private meniuService: MeniuService;
 
@@ -20,8 +22,8 @@ export class MeniuComponent implements OnInit {
   public price: number;
   public weight: number;
   public meat: number;
-  public about: string
-  
+  public about: string;
+
   public menius: Meniu[] = [];
 
   public hideMode: boolean = true;
@@ -52,9 +54,10 @@ export class MeniuComponent implements OnInit {
       newMeniu.id = meniuId;
       this.menius.push(newMeniu);
       this.getData();
+      this.onMenuUpdated.emit("");
     })
 
-    
+    this.resetValues();
     this.hideMode = true;
 
   }
@@ -95,9 +98,19 @@ export class MeniuComponent implements OnInit {
       this.getData();
       })
   
+  this.resetValues();
+
   this.hideMode = true;
   this.editMode = false;
   
+  }
+
+  resetValues(): void{
+    this.title = "";
+    this.price = null;
+    this.weight = null;
+    this.meat = null;
+    this.about = "";
   }
 
 }

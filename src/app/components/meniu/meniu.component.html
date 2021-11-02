@@ -3,7 +3,7 @@
   <h4>Meniu</h4>
   </div>
     <div>
-    <button type="submit" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti patiekalą</button>
+    <button type="button" class="btn btn-secondary" *ngIf="hideMode" (click)="hideMode = false">Pridėti patiekalą</button>
     </div>
     
     <div [hidden]="hideMode">
@@ -26,11 +26,11 @@
           </div>
           <div class="form-group">
             <label>Aprašymas</label>
-            <input type="text" class="form-control" placeholder="Įvesti Aprašymą" [(ngModel)]="about">
+            <input type="text" class="form-control" placeholder="Įvesti aprašymą" [(ngModel)]="about">
           </div>
           <div>
             <button type="submit" class="btn btn-primary" *ngIf="editMode == false" (click)="addMeniu()">Pridėti</button>
-            <button type="submit" class="btn btn-secondary" *ngIf="editMode == false" (click)="hideMode = true">Slėpti formą</button>
+            <button type="button" class="btn btn-secondary" *ngIf="editMode == false" (click)="hideMode = true">Slėpti formą</button>
           </div>  
           <div>
             <button type="submit" class="btn btn-primary" *ngIf="editMode == true" (click)="sendUpdatedMeniu()">Koreguoti</button>
