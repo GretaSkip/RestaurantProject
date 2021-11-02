@@ -9,7 +9,6 @@
         <div [hidden] ="hideMode == false">
         <label>Filtruoti restoranus</label>
         <select class="form-select" [(ngModel)]="meniuSelected" (ngModelChange)="onMeniuSelected($event)">
-            <option disabled>Ieškoti...</option>
             <option [value]="0">Visi</option>
             <option *ngFor="let meniu of menius"  [value]="meniu.id">
                 {{meniu.title}}

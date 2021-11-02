@@ -67,6 +67,7 @@ export class MeniuComponent implements OnInit {
     this.meniuService.deleteMeniu(id).subscribe(()=> {
       let index = this.menius.map(m => m.id).indexOf(id);
       this.menius.splice(index, 1);
+      this.onMenuUpdated.emit("");
     })
   }
 
@@ -96,6 +97,7 @@ export class MeniuComponent implements OnInit {
 
   this.meniuService.updateMeniu(updatedValue).subscribe(()=>{
       this.getData();
+      this.onMenuUpdated.emit("");
       })
   
   this.resetValues();
